@@ -13,9 +13,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import django_heroku
 import dj_database_url
-from decouple import config,Csv
+from decouple import config, Csv
 
-MODE=config('MODE', default="dev")
+MODE = config('MODE', default="dev")
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
@@ -85,25 +85,24 @@ WSGI_APPLICATION = 'tribune.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# if config('MODE')=="dev":
-#        DATABASES = {
-#        'default': {
-#            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#            'NAME': config('DB_NAME'),
-#            'USER': config('DB_USER'),
-#            'PASSWORD': config('DB_PASSWORD'),
-#            'HOST': config('DB_HOST'),
-#            'PORT': '',
-#        }
-       
-#    }
-# # production
-# else:
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
-}
+if config('MODE') == "dev":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config('DB_NAME'),
+            'USER': config('DB_USER'),
+            'PASSWORD': config('DB_PASSWORD'),
+            'HOST': config('DB_HOST'),
+            'PORT': '',
+        }
+    }
+# production
+else:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=config('DATABASE_URL')
+        )
+    }
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
@@ -113,10 +112,10 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'tribune', 
-#         'USER': 'postgres', 
-#         'PASSWORD': '123456', 
-#         'HOST': 'localhost', # the missing piece of the puzzle 
+#         'NAME': 'tribune',
+#         'USER': 'postgres',
+#         'PASSWORD': '123456',
+#         'HOST': 'localhost', # the missing piece of the puzzle
 #         'PORT': ''
 #     }
 # }

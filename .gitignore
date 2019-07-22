@@ -2,3 +2,6 @@
 venv/
 *.pyc
 .vscode/
+virtual/
+.gitignore
+media/
