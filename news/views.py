@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 import datetime as dt
@@ -73,7 +74,7 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'all-news/search.html', {"message": message})
 
-
+@login_required(login_url='/accounts/login')
 def article(request, article_id):
     try:
         article = Article.objects.get(id=article_id)
