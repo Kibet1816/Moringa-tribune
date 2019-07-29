@@ -1,0 +1,23 @@
+{% extends 'all-news/base.html' %}
+
+{% block content %}
+{% for news_item in news %}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="text-center" >{{news_item.title}}</h1>
+                <img src="{{news_item.article_image}}" alt="Article image">
+            </div>
+            <div class="panel-body">
+                <p>{{news_item.post}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% endfor %}
+
+
+{% endblock %}

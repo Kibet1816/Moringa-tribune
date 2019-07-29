@@ -38,10 +38,16 @@
                 <a href="{% url 'newsToday' %}">Home</a>
               </li>
               <li>
+                <a href="{% url 'new-article' %}">Create Article</a>
+              </li>
+              <li>
                 <a href="/accounts/password/change">Change Password</a>
               </li>
               <li>
                 <a href="/logout">Logout</a>
+              </li>
+              <li>
+                <a href="{% url 'view-news' %}">See all news</a>
               </li>
             </ul>
           </li>

@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404,HttpResponseRedirect
 import datetime as dt
 from django.shortcuts import render, redirect
 from .email import send_welcome_email
-from .forms import NewsLetterForm
+from .forms import NewsLetterForm,NewsArticleForm
 from .models import Article,NewsLetterRecepients
 
 
@@ -31,6 +31,10 @@ def news_today(request):
         form = NewsLetterForm()
     return render(request, 'all-news/today-news.html', {"date": date, "news": news, "letterForm": form})
 
+def all_news(request):
+    news = Article.todays_news()
+
+    return render('all-news/news.html',{"news":news})
 
 def convert_dates(dates):
 
@@ -81,3 +85,18 @@ def article(request, article_id):
     except DoesNotExist:
         raise Http404()
     return render(request, "all-news/article.html", {"article": article})
+
+@login_required(login_url='/accounts/login/')
+def new_article(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewsArticleForm(request.POST,request.FILES)
+        if form.is_valid():
+            article = form.save(commit = False)
+            article.editor = current_user
+            article.save()
+        return redirect ('newsToday')
+
+    else:
+        form = NewsArticleForm()
+    return render(request,'new_article.html',{"form":form})
