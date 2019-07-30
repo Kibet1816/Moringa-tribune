@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import MerchSerializer
 from rest_framework import status
+from .permissions import AdminOnly
 
 # Create your views here.
 def welcome(request):
@@ -126,5 +127,7 @@ class MerchList(APIView):
         serializers = MerchSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
+            permission_classes = (AdminOnly,)
             return Response(serializers.data,status=status.HTTP_201_CREATED)
         return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
+
