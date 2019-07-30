@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article,Tags
+from .models import Article,Tags,MoringaMerch
 # Register your models here.
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -7,3 +7,4 @@ class ArticleAdmin(admin.ModelAdmin):
 
 admin.site.register(Article,ArticleAdmin)
 admin.site.register(Tags)
+admin.site.register(MoringaMerch)
